@@ -1,0 +1,28 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: my-backend
+  # 数据库配置 —— 改成你自己的 MySQL 地址、库名、账号密码
+  datasource:
+    url: jdbc:mysql://localhost:3306/my_backend?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+# MyBatis-Plus 配置
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl  # 控制台打印 SQL，调试用
+  global-config:
+    db-config:
+      logic-delete-field: deleted   # 逻辑删除字段
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+
+# Swagger 文档路径
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
