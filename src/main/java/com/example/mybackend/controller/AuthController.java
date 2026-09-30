@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.example.mybackend.common.JwtUtil;
 import com.example.mybackend.common.Result;
 import com.example.mybackend.dto.LoginDTO;
+import com.example.mybackend.dto.UserCreateDTO;
 import com.example.mybackend.entity.User;
 import com.example.mybackend.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -50,5 +51,11 @@ public class AuthController {
         data.put("userId", user.getId());
         data.put("nickname", user.getNickname());
         return Result.success(data);
+    }
+
+    @Operation(summary = "注册，创建新用户")
+    @PostMapping("/register")
+    public Result<User> register(@Valid @RequestBody UserCreateDTO dto) {
+        return Result.success(userService.create(dto));
     }
 }

@@ -17,7 +17,7 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addInterceptor(authInterceptor)
                 .addPathPatterns("/api/**")           // 拦截所有 /api 开头的
                 .excludePathPatterns(                  // 但这些放行
-                        "/api/auth/login",             // 登录接口
+                        "/api/auth/**",               // 登录、注册接口
                         "/api/test/**",                // 测试接口
                         "/swagger-ui/**",              // Swagger 页面
                         "/swagger-ui.html",

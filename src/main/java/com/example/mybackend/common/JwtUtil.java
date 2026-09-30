@@ -15,6 +15,7 @@ import java.util.Map;
 @Component
 public class JwtUtil {
 
+    // 密钥，生产环境应该放配置文件
     private static final String SECRET = "my-backend-secret-key-must-be-at-least-256-bits-long!!";
     private static final long EXPIRE_MS = 24 * 60 * 60 * 1000;
 
