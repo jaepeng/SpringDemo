@@ -8,6 +8,7 @@ import com.example.mybackend.entity.User;
 import com.example.mybackend.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -56,5 +57,12 @@ public class UserController {
             @RequestParam(defaultValue = "10") int size,
             @RequestParam(required = false) String keyword) {
         return Result.success(userService.page(current, size, keyword));
+    }
+
+    @Operation(summary = "获取当前登录用户信息")
+    @GetMapping("/me")
+    public Result<User> me(HttpServletRequest request) {
+        User user = (User) request.getAttribute("currentUser");
+        return Result.success(user);
     }
 }
