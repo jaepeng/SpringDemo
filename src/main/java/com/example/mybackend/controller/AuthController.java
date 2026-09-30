@@ -44,7 +44,7 @@ public class AuthController {
             throw new IllegalArgumentException("账号已被禁用");
         }
         // 4. 生成 token
-        String token = jwtUtil.generateToken(user.getId());
+        String token = jwtUtil.generateToken(user);
         Map<String, Object> data = new HashMap<>();
         data.put("token", token);
         data.put("userId", user.getId());

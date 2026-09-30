@@ -2,6 +2,7 @@ package com.example.mybackend.common;
 
 import com.example.mybackend.entity.User;
 import com.example.mybackend.service.UserService;
+import io.jsonwebtoken.Claims;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -26,14 +27,15 @@ public class AuthInterceptor implements HandlerInterceptor {
             return false;
         }
         String token = auth.substring(7);
-        Long userId = jwtUtil.parseUserId(token);
-        if (userId == null) {
+        Claims claims = jwtUtil.parseToken(token);
+        if (claims == null) {
             response.setStatus(401);
             response.setContentType("application/json;charset=UTF-8");
             response.getWriter().write("{\"code\":401,\"message\":\"token无效或已过期\"}");
             return false;
         }
-        // 把用户id存到 request 里，Controller 可以直接取
+        Long userId = claims.get("userId", Long.class);
+        // 把用户信息存到 request 里，Controller 可以直接取
         User user = userService.getById(userId);
         if (user == null || user.getStatus() == 0) {
             response.setStatus(401);
